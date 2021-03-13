@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
-
 import formStyles from "../Form/Form.module.scss";
 
 export default function FormSignup() {
@@ -11,12 +11,13 @@ export default function FormSignup() {
   const { signup } = useAuth();
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return setErrors("Passwords does not match");
+      return setErrors("Passwords do not match");
     }
 
     try {
@@ -25,6 +26,7 @@ export default function FormSignup() {
 
       // Try to add the user to Firebase
       await signup(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
     } catch {
       setErrors("User could not be created.");
     }
@@ -33,7 +35,7 @@ export default function FormSignup() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={formStyles.form} onSubmit={handleSubmit}>
       <div className={formStyles.formGroup}>
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" autoComplete="username" ref={emailRef} />
@@ -60,9 +62,7 @@ export default function FormSignup() {
       </div>
 
       <div className={formStyles.formGroup}>
-        <button disabled={loading} type="submit" value="Log In">
-          Sign up
-        </button>
+        <input disabled={loading} type="submit" value="Create account"></input>
       </div>
 
       {errors}
