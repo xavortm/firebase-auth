@@ -1,20 +1,17 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import FormLogin from "../components/FormLogin/FormLogin";
 
 export default function Signup() {
-  let location = useLocation();
-
-  let { from } = location.state || { from: { pathname: "/" } };
-
   return (
     <div className="authenticationView">
       <h1>Sign In</h1>
-      <FormLogin />
       <p>
-        Don't have an account? <Link to="/signup">Create one now</Link>!
+        It's a simple demo website for now. But if you don't have an account,
+        you can't really see the dashboard.
       </p>
+      <FormLogin />
     </div>
   );
 }

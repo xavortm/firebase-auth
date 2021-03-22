@@ -10,9 +10,6 @@ import PrivateRoute from "./components/Route/PrivateRoute";
 const App = () => {
   return (
     <div className="appWrapper">
-      <header className="appHeader">
-        <span>Auth learning project</span>
-      </header>
       <main className="appMain">
         <Router>
           <AuthProvider>

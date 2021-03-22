@@ -6,11 +6,14 @@ export default function Signup() {
   return (
     <div className="authenticationView">
       <h1>Create an Account</h1>
-      <FormSignup />
-
       <p>
-        Already have an account? <Link to="/login">Log in!</Link>
+        Your user data is stored in{" "}
+        <a href="https://firebase.google.com/" target="_blank">
+          Firebase
+        </a>
+        .
       </p>
+      <FormSignup />
     </div>
   );
 }

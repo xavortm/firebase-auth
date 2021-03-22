@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import cx from "classnames";
 
 import { useAuth } from "../../contexts/AuthContext";
 import formStyles from "../Form/Form.module.scss";
@@ -35,13 +36,13 @@ export default function FormSignup() {
   }
 
   return (
-    <form className={formStyles.form} onSubmit={handleSubmit}>
-      <div className={formStyles.formGroup}>
+    <form className={cx(formStyles.form)} onSubmit={handleSubmit}>
+      <div className={cx(formStyles.formGroup)}>
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" autoComplete="username" ref={emailRef} />
       </div>
 
-      <div className={formStyles.formGroup}>
+      <div className={cx(formStyles.formGroup)}>
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -51,7 +52,7 @@ export default function FormSignup() {
         />
       </div>
 
-      <div className={formStyles.formGroup}>
+      <div className={cx(formStyles.formGroup)}>
         <label htmlFor="password">Confirm Password:</label>
         <input
           type="password"
@@ -61,11 +62,15 @@ export default function FormSignup() {
         />
       </div>
 
-      <div className={formStyles.formGroup}>
+      <div className={cx(formStyles.formGroup, formStyles.formGroupSubmit)}>
         <input disabled={loading} type="submit" value="Create account"></input>
       </div>
 
       {errors}
+
+      <p className={cx(formStyles.formFooter)}>
+        Already have an account? <Link to="/login">Log in!</Link>
+      </p>
     </form>
   );
 }

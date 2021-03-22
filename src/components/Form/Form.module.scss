@@ -22,19 +22,57 @@
   input[type="text"],
   input[type="email"],
   input[type="password"] {
-    padding: 0.75em 1.25em;
-    border: 1px solid #ddd;
+    padding: 0.75em 1em;
+    border: 3px solid var(--color-primary);
     background: #fff;
     border-radius: 0.25em;
+
+    &:focus {
+      outline-color: black;
+    }
   }
 
   input[type="submit"] {
     padding: 0.75em 1.25em;
-    background: #00509d;
+    background: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 0.25em;
     font-weight: 600;
-    font-size: 1.25em;
+    display: inline-block;
+    cursor: pointer;
+    outline-color: black;
+  }
+}
+
+.formFooter {
+  margin-top: 3em;
+  color: #888;
+
+  a {
+    font-weight: 700;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    width: 5em;
+    height: 1px;
+    background: #ddd;
+    margin-bottom: 2em;
+  }
+}
+
+.formGroupSubmit {
+  flex-direction: row;
+}
+
+.notification {
+  background: #fafafa;
+  padding: 1em;
+  color: #888;
+
+  &Error {
+    color: white;
+    background-color: tomato;
   }
 }
