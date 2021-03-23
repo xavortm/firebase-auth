@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import FormSignup from "../components/FormSignup/FormSignup";
 
 export default function Signup() {
@@ -8,7 +7,7 @@ export default function Signup() {
       <h1>Create an Account</h1>
       <p>
         Your user data is stored in{" "}
-        <a href="https://firebase.google.com/" target="_blank">
+        <a href="https://firebase.google.com/" target="_blank" rel="noreferrer">
           Firebase
         </a>
         .

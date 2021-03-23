@@ -1,25 +1,36 @@
 import React from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { useHistory } from "react-router-dom";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Members from "./Dashboard/Members";
+import Projects from "./Dashboard/Projects";
+import Navigation from "../components/Navigation/Navigation";
+import PageHeader from "../components/Header/PageHeader";
 
 export default function Signup() {
-  const { currentUser, logout } = useAuth();
-  const history = useHistory();
-
-  async function handleLogout() {
-    try {
-      await logout();
-      history.push("/login");
-    } catch (error) {
-      console.error("failed to logout", error);
-    }
-  }
-
   return (
     <div className="appHome">
-      <h1>Home</h1>
-      <p>Logged in with email {currentUser.email}</p>
-      <button onClick={handleLogout}>Log out</button>
+      <Router>
+        <div className="dashboard">
+          <Navigation />
+          <Switch>
+            <Route exact path="/">
+              <PageHeader title="Welcome">
+                <p>
+                  It is quite empty at the moment, so, you might have to check
+                  later to see some dev updates on this page :)
+                </p>
+              </PageHeader>
+            </Route>
+            <Route path="/members">
+              <Members />
+            </Route>
+            <Route path="/projects">
+              <Projects />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }

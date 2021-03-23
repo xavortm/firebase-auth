@@ -1,0 +1,51 @@
+.menu {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  padding: 1em 0;
+}
+
+.primaryMenu,
+.secondaryMenu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+  li + li {
+    margin-left: 1.5em;
+  }
+
+  a,
+  button,
+  .simulatedButton {
+    background: none;
+    border: none;
+    text-decoration: none;
+    appearance: none;
+
+    padding: 0.75em 0;
+    display: inline-block;
+    font-weight: 500;
+    color: black;
+    line-height: 1.5;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 -2px 0 0 #ddd;
+      color: var(--color-primary);
+    }
+  }
+}
+
+.primaryMenu {
+  flex: 1 1 auto;
+}
+
+.secondaryMenu {
+  a,
+  button,
+  .simulatedButton {
+    font-weight: 400;
+  }
+}
