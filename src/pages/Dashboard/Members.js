@@ -37,9 +37,7 @@ export default function Members() {
       <PageHeader title="Members">
         <p>From here, you can modify data for your members list.</p>
       </PageHeader>
-
       <AddMember />
-
       {/* Commented out for now, not needed as it's static. */}
       {/* {membersTable} */}
     </>

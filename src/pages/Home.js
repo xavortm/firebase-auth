@@ -22,10 +22,10 @@ export default function Signup() {
                 </p>
               </PageHeader>
             </Route>
-            <Route path="/members">
+            <Route exact path="/members">
               <Members />
             </Route>
-            <Route path="/projects">
+            <Route exact path="/projects">
               <Projects />
             </Route>
           </Switch>

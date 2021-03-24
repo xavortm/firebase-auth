@@ -1,4 +1,28 @@
-.addMember {
-  padding: 2em;
-  border: 1px solid #ddd;
+.formRow {
+  display: flex;
+  justify-content: stretch;
+  border-bottom: 1px solid #ddd;
+}
+
+.formCell {
+  padding: 1em 0;
+  font-weight: bold;
+  flex: 0 1 15em;
+
+  & + & {
+    padding-left: 1em;
+  }
+
+  input[type="text"] {
+    border: none;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+input[type="submit"] {
+  margin-top: 2em;
 }
