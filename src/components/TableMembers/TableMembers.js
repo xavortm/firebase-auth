@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import cx from "classnames";
 
 import tableStyles from "../Table/Table.module.scss";
