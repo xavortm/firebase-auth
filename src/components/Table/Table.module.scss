@@ -1,0 +1,28 @@
+.formRow {
+  display: flex;
+  justify-content: stretch;
+  border-bottom: 1px solid #ddd;
+  font-weight: normal;
+}
+
+header.formRow {
+  font-weight: bold;
+}
+
+.formCell {
+  padding: 1em 0;
+  flex: 0 1 15em;
+
+  & + & {
+    padding-left: 1em;
+  }
+
+  input[type="text"] {
+    border: none;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

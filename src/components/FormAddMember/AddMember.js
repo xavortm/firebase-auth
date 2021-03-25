@@ -1,25 +1,34 @@
 import React, { useState } from "react";
 import cx from "classnames";
+import { database } from "../../firebase";
 
 import Button from "../../components/Button/Button";
-import styles from "./AddMember.module.scss";
+import memberStyles from "./AddMember.module.scss";
+import tableStyles from "../Table/Table.module.scss";
+
+// The structure of data we share in the DB as well as the fields we show.
+const userDataStructure = {
+  name: {
+    value: "",
+  },
+  position: {
+    value: "",
+  },
+  date: {
+    value: "",
+  },
+};
 
 export default function AddMember() {
-  const [inputData, setInputData] = useState({
-    name: {
-      value: "",
-    },
-    position: {
-      value: "",
-    },
-    date: {
-      value: "",
-    },
-  });
+  // Holds our reference to the members database data.
+  const membersRef = database.ref("members");
+  const [inputData, setInputData] = useState(userDataStructure);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputData);
+
+    if (inputData.name.value !== "" && inputData.position.value !== "")
+      membersRef.push(inputData);
   };
 
   const handleInputChange = (e) => {
@@ -34,21 +43,24 @@ export default function AddMember() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={cx(styles.addmember)}>
-      <header className={cx(styles.formRow)}>
-        <div className={cx(styles.formCell)}>
+    <form
+      onSubmit={handleSubmit}
+      className={cx(tableStyles.addmember, memberStyles)}
+    >
+      <header className={cx(tableStyles.formRow)}>
+        <div className={cx(tableStyles.formCell)}>
           <span>Name</span>
         </div>
-        <div className={cx(styles.formCell)}>
+        <div className={cx(tableStyles.formCell)}>
           <span>Position</span>
         </div>
-        <div className={cx(styles.formCell)}>
+        <div className={cx(tableStyles.formCell)}>
           <span>Joined</span>
         </div>
       </header>
 
-      <div className={cx(styles.formRow)}>
-        <div className={cx(styles.formCell)}>
+      <div className={cx(tableStyles.formRow)}>
+        <div className={cx(tableStyles.formCell)}>
           <input
             onChange={handleInputChange}
             name="name"
@@ -57,7 +69,7 @@ export default function AddMember() {
             placeholder="What's the name?"
           />
         </div>
-        <div className={cx(styles.formCell)}>
+        <div className={cx(tableStyles.formCell)}>
           <input
             onChange={handleInputChange}
             name="position"
@@ -66,7 +78,7 @@ export default function AddMember() {
             placeholder="In what position?"
           />
         </div>
-        <div className={cx(styles.formCell)}>
+        <div className={cx(tableStyles.formCell)}>
           <input
             onChange={handleInputChange}
             name="date"
