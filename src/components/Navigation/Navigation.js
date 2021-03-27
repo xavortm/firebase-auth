@@ -23,6 +23,10 @@ export default function Navigation() {
     <nav className={cx(styles.menu)}>
       <ul className={cx(styles.primaryMenu)}>
         <li>
+          <Link to="/">Home</Link>
+        </li>
+
+        <li>
           <Link to="/members">Members</Link>
         </li>
 

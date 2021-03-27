@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import Home from "./pages/Home";
+import Index from "./pages/Index";
 import PrivateRoute from "./components/Route/PrivateRoute";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Signin} />
               <PrivateRoute path="/">
-                <Home />
+                <Index />
               </PrivateRoute>
             </Switch>
           </AuthProvider>

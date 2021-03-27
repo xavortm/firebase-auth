@@ -27,8 +27,10 @@ export default function AddMember() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (inputData.name.value !== "" && inputData.position.value !== "")
+    if (inputData.name.value !== "" && inputData.position.value !== "") {
       membersRef.push(inputData);
+      setInputData(userDataStructure);
+    }
   };
 
   const handleInputChange = (e) => {

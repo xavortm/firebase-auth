@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import cx from "classnames";
 
+import { database, auth } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import formStyles from "../Form/Form.module.scss";
 
@@ -12,6 +13,7 @@ export default function FormLogin() {
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const dbUsers = database.ref("users");
 
   const errorOutput = errors ? (
     <p className={cx(formStyles.notification, formStyles.notificationError)}>
@@ -28,6 +30,18 @@ export default function FormLogin() {
 
       // Try to add the user to Firebase
       await login(emailRef.current.value, passwordRef.current.value);
+
+      // Make sure to add/update the user
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          let dbUser = dbUsers.child(user.uid);
+
+          dbUser.set({
+            uid: user.uid,
+            email: user.email,
+          });
+        }
+      });
 
       history.push("/");
     } catch {

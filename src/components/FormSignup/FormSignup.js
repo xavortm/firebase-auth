@@ -3,6 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 import cx from "classnames";
 
 import { useAuth } from "../../contexts/AuthContext";
+
 import formStyles from "../Form/Form.module.scss";
 
 export default function FormSignup() {
@@ -27,6 +28,7 @@ export default function FormSignup() {
 
       // Try to add the user to Firebase
       await signup(emailRef.current.value, passwordRef.current.value);
+
       history.push("/");
     } catch {
       setErrors("User could not be created.");

@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Members from "./Dashboard/Members";
 import Projects from "./Dashboard/Projects";
+import Home from "./Dashboard/Home";
 import Navigation from "../components/Navigation/Navigation";
-import PageHeader from "../components/Header/PageHeader";
 
-export default function Signup() {
+export default function Index() {
   return (
     <div className="appHome">
       <Router>
@@ -15,12 +15,7 @@ export default function Signup() {
           <Navigation />
           <Switch>
             <Route exact path="/">
-              <PageHeader title="Welcome">
-                <p>
-                  It is quite empty at the moment, so, you might have to check
-                  later to see some dev updates on this page :)
-                </p>
-              </PageHeader>
+              <Home />
             </Route>
             <Route exact path="/members">
               <Members />
