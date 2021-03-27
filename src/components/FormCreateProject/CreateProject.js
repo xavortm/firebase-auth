@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import cx from "classnames";
 import { database, auth } from "../../firebase";
 
@@ -6,21 +6,41 @@ import Button from "../../components/Button/Button";
 import styles from "./CreateProject.module.scss";
 import formStyles from "../Form/Form.module.scss";
 
-// The structure of data we share in the DB as well as the fields we show.
+const writeNewProject = (uid, name, owner) => {
+  let projectData = {
+    name: name,
+    ownerUid: uid,
+    owner: owner,
+  };
+
+  // Get the key for the new project
+  const newProjectKey = database.ref().child("projects").push().key;
+
+  let updates = {};
+  updates["/projects/" + newProjectKey] = projectData;
+  updates["/users/" + uid + "/projects/" + newProjectKey] = projectData;
+
+  return database.ref().update(updates);
+};
 
 export default function CreateProject() {
-  const dbProjects = database.ref("projects");
   const refInputName = useRef("");
+  const [inputField, setInputField] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dbProjects.push({
-      name: refInputName.current.value,
-      owner: auth.currentUser.email,
-    });
+    writeNewProject(
+      auth.currentUser.uid,
+      refInputName.current.value,
+      auth.currentUser.email
+    );
 
-    console.log(refInputName.current.value);
+    setInputField("");
+  };
+
+  const handleInputChange = (input) => {
+    setInputField(input.value);
   };
 
   return (
@@ -31,6 +51,8 @@ export default function CreateProject() {
           name="name"
           type="text"
           placeholder="Name your project?"
+          value={inputField}
+          onChange={handleInputChange}
         />
       </div>
 
