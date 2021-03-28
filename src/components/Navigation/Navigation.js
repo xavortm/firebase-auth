@@ -1,58 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import cx from "classnames";
 
 import { useAuth } from "../../contexts/AuthContext";
-import ProjectsService from "../../services/ProjectsService";
 
+import ProjectSelector from "./ProjectSelector";
 import styles from "./Navigation.module.scss";
-
-const ProjectSelector = ({ currentUser, hideInnerPages }) => {
-  const [projectsList, setProjectsList] = useState([]);
-
-  useEffect(() => {
-    const onDataChange = (items) => {
-      const arr = [];
-
-      items.forEach((item) => {
-        arr.push({ ...item.val(), key: item.key });
-      });
-
-      setProjectsList(arr);
-
-      if (arr.length > 0) hideInnerPages(false);
-    };
-
-    ProjectsService.getProjectsOfUser(currentUser.uid).on(
-      "value",
-      onDataChange
-    );
-
-    return () => {
-      ProjectsService.getProjectsOfUser(currentUser.uid).on(
-        "value",
-        onDataChange
-      );
-    };
-  }, [currentUser.uid, hideInnerPages]);
-
-  const options = projectsList.map((project) => {
-    return (
-      <option key={project.key} value="project.name">
-        {project.name}
-      </option>
-    );
-  });
-
-  if (options.length === 0) return null;
-
-  return (
-    <select name="projectPicker" id="projectPicker">
-      {options}
-    </select>
-  );
-};
 
 export default function Navigation() {
   const { currentUser, logout } = useAuth();
@@ -83,12 +37,10 @@ export default function Navigation() {
         </li>
 
         <li>
-          <Link to="/members">Members</Link>
+          <Link to="/:projectid/members">Members</Link>
         </li>
 
-        <li>
-          <Link to="/projects">Projects</Link>
-        </li>
+        <li>{/* <Link to="/projects">Projects</Link> */}</li>
       </ul>
 
       <ul className={cx(styles.secondaryMenu)}>
