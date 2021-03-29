@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 import ProjectsService from "../../services/ProjectsService";
+import { currentProjectSelected } from "../../Recoil/Data/Atoms";
 
 const ProjectSelector = ({ currentUser, hideInnerPages }) => {
+  const [currentProject, setCurrentProject] = useRecoilState(
+    currentProjectSelected
+  );
+
   const [projectsList, setProjectsList] = useState([]);
-  const [currentProject, setCurrentProject] = useState();
   const history = useHistory();
 
   useEffect(() => {
@@ -17,8 +22,11 @@ const ProjectSelector = ({ currentUser, hideInnerPages }) => {
       });
 
       setProjectsList(arr);
-      setCurrentProject(arr[0].name);
-      history.push("/" + arr[0].key + "/");
+      setCurrentProject({
+        name: arr[0].name,
+        key: arr[0].key,
+      });
+      // history.push("/project/" + arr[0].key + "/");
 
       if (arr.length > 0) hideInnerPages(false);
     };
@@ -39,7 +47,7 @@ const ProjectSelector = ({ currentUser, hideInnerPages }) => {
   const handleSelect = (e) => {
     setCurrentProject(e.target.value);
     console.log(e.target.selectedIndex);
-    history.push("/" + projectsList[e.target.selectedIndex].key + "/");
+    history.push("/project/" + projectsList[e.target.selectedIndex].key + "/");
   };
 
   const options = projectsList.map((project) => {

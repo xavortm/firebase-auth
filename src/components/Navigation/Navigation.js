@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
+
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import cx from "classnames";
 
 import { useAuth } from "../../contexts/AuthContext";
+import { currentProjectSelected } from "../../Recoil/Data/Atoms";
 
 import ProjectSelector from "./ProjectSelector";
 import styles from "./Navigation.module.scss";
@@ -12,6 +15,11 @@ export default function Navigation() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
   const [hideInnerPages, setHideInnerPages] = useState(true);
+  const [currentProject, setCurrentProject] = useRecoilState(
+    currentProjectSelected
+  );
+
+  console.log(currentProject);
 
   async function handleLogout() {
     try {
@@ -37,7 +45,7 @@ export default function Navigation() {
         </li>
 
         <li>
-          <Link to="/:projectid/members">Members</Link>
+          <Link to={`/project/${currentProject.key}/members`}>Members</Link>
         </li>
 
         <li>{/* <Link to="/projects">Projects</Link> */}</li>
