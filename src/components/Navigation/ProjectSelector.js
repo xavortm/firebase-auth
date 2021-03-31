@@ -21,14 +21,18 @@ const ProjectSelector = ({ currentUser, hideInnerPages }) => {
         arr.push({ ...item.val(), key: item.key });
       });
 
+      if (arr.length > 0) {
+        hideInnerPages(false);
+      } else {
+        return;
+      }
+
       setProjectsList(arr);
       setCurrentProject({
         name: arr[0].name,
         key: arr[0].key,
       });
       // history.push("/project/" + arr[0].key + "/");
-
-      if (arr.length > 0) hideInnerPages(false);
     };
 
     ProjectsService.getProjectsOfUser(currentUser.uid).on(
@@ -46,7 +50,7 @@ const ProjectSelector = ({ currentUser, hideInnerPages }) => {
 
   const handleSelect = (e) => {
     setCurrentProject(projectsList[e.target.selectedIndex]);
-    history.push("/project/" + projectsList[e.target.selectedIndex].key + "/");
+    history.push("/");
   };
 
   const options = projectsList.map((project) => {

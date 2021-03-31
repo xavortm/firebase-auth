@@ -6,6 +6,24 @@
   max-width: 30em;
   margin-left: auto;
   margin-right: auto;
+
+  &.formInline {
+    display: flex;
+    margin: 0;
+
+    .formGroup {
+      margin: 0;
+
+      & + .formGroup {
+        margin-left: 0.5em;
+      }
+    }
+
+    input[type="submit"] {
+      border: 3px solid var(--color-primary);
+      border-radius: 0.25em;
+    }
+  }
 }
 
 .formGroup {

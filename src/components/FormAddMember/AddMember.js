@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import cx from "classnames";
 import { database } from "../../firebase";
+import { useRecoilState } from "recoil";
 
 import Button from "../../components/Button/Button";
 import memberStyles from "./AddMember.module.scss";
 import tableStyles from "../Table/Table.module.scss";
+import { currentProjectSelected } from "../../Recoil/Data/Atoms";
 
 // The structure of data we share in the DB as well as the fields we show.
 const userDataStructure = {
@@ -20,8 +22,12 @@ const userDataStructure = {
 };
 
 export default function AddMember() {
+  const [currentProject] = useRecoilState(currentProjectSelected);
+
   // Holds our reference to the members database data.
-  const membersRef = database.ref("members");
+  const membersRef = database.ref(
+    "projects/" + currentProject.key + "/members"
+  );
   const [inputData, setInputData] = useState(userDataStructure);
 
   const handleSubmit = (e) => {

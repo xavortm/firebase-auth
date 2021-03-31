@@ -1,17 +1,13 @@
 import React from "react";
-import { useRecoilState } from "recoil";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { currentProjectSelected } from "../Recoil/Data/Atoms";
 
 import Members from "./Dashboard/Members";
-// import Projects from "./Dashboard/Projects";
+import Overview from "./Dashboard/Overview";
 import Home from "./Dashboard/Home";
 import Navigation from "../components/Navigation/Navigation";
 
 export default function Index() {
-  const [currentProject] = useRecoilState(currentProjectSelected);
-
   return (
     <div className="appHome">
       <Router>
@@ -21,12 +17,12 @@ export default function Index() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path={`/project/${currentProject.key}/members`}>
+            <Route exact path={`/project/:id`}>
+              <Overview />
+            </Route>
+            <Route path={`/project/:id/members`}>
               <Members />
             </Route>
-            {/* <Route exact path="/projects">
-              <Projects />
-            </Route> */}
           </Switch>
         </div>
       </Router>

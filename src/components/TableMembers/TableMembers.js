@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import cx from "classnames";
+import { useRecoilState } from "recoil";
+
+import { currentProjectSelected } from "../../Recoil/Data/Atoms";
 
 import tableStyles from "../Table/Table.module.scss";
 import MembersService from "../../services/MembersService";
 
 export default function TableMembers() {
+  const [currentProject] = useRecoilState(currentProjectSelected);
   const [membersList, setMembersList] = useState([]);
 
   const onDataChange = (items) => {
@@ -26,12 +30,12 @@ export default function TableMembers() {
   };
 
   useEffect(() => {
-    MembersService.getAll().on("value", onDataChange);
+    MembersService.getAll(currentProject.key).on("value", onDataChange);
 
     return () => {
-      MembersService.getAll().on("value", onDataChange);
+      MembersService.getAll(currentProject.key).on("value", onDataChange);
     };
-  }, []);
+  }, [currentProject.key]);
 
   const membersRows = membersList.map((member) => {
     return (

@@ -38,7 +38,10 @@ export default function CreateProject() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={cx(formStyles.form, styles.form)}>
+    <form
+      onSubmit={handleSubmit}
+      className={cx(formStyles.form, styles.form, formStyles.formInline)}
+    >
       <div className={cx(formStyles.formGroup)}>
         <input
           name="name"
