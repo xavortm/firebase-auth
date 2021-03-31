@@ -10,9 +10,7 @@ import Home from "./Dashboard/Home";
 import Navigation from "../components/Navigation/Navigation";
 
 export default function Index() {
-  const [currentProject, setCurrentProject] = useRecoilState(
-    currentProjectSelected
-  );
+  const [currentProject] = useRecoilState(currentProjectSelected);
 
   return (
     <div className="appHome">
@@ -23,7 +21,7 @@ export default function Index() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path={`/project/${currentProject}/members`}>
+            <Route path={`/project/${currentProject.key}/members`}>
               <Members />
             </Route>
             {/* <Route exact path="/projects">

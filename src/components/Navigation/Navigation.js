@@ -15,11 +15,7 @@ export default function Navigation() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
   const [hideInnerPages, setHideInnerPages] = useState(true);
-  const [currentProject, setCurrentProject] = useRecoilState(
-    currentProjectSelected
-  );
-
-  console.log(currentProject);
+  const [currentProject] = useRecoilState(currentProjectSelected);
 
   async function handleLogout() {
     try {
@@ -37,7 +33,7 @@ export default function Navigation() {
           <Link to="/">Home</Link>
         </li>
 
-        <li className={hideInnerPages && cx(styles.hideInner)}>
+        <li className={hideInnerPages ? cx(styles.hideInner) : ""}>
           <ProjectSelector
             hideInnerPages={setHideInnerPages}
             currentUser={currentUser}

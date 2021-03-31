@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import cx from "classnames";
 import { database, auth } from "../../firebase";
 
@@ -24,30 +24,23 @@ const writeNewProject = (uid, name, owner) => {
 };
 
 export default function CreateProject() {
-  const refInputName = useRef("");
   const [inputField, setInputField] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    writeNewProject(
-      auth.currentUser.uid,
-      refInputName.current.value,
-      auth.currentUser.email
-    );
-
+    writeNewProject(auth.currentUser.uid, inputField, auth.currentUser.email);
     setInputField("");
   };
 
   const handleInputChange = (input) => {
-    setInputField(input.value);
+    setInputField(input.target.value);
   };
 
   return (
     <form onSubmit={handleSubmit} className={cx(formStyles.form, styles.form)}>
       <div className={cx(formStyles.formGroup)}>
         <input
-          ref={refInputName}
           name="name"
           type="text"
           placeholder="Name your project?"

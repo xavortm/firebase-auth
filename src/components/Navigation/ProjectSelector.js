@@ -42,11 +42,10 @@ const ProjectSelector = ({ currentUser, hideInnerPages }) => {
         onDataChange
       );
     };
-  }, [currentUser.uid, hideInnerPages, history]);
+  }, [currentUser.uid, hideInnerPages, history, setCurrentProject]);
 
   const handleSelect = (e) => {
-    setCurrentProject(e.target.value);
-    console.log(e.target.selectedIndex);
+    setCurrentProject(projectsList[e.target.selectedIndex]);
     history.push("/project/" + projectsList[e.target.selectedIndex].key + "/");
   };
 
